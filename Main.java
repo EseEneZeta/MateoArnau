@@ -101,15 +101,30 @@ public class Main {
             System.out.println("No hay vehículos dados de alta. Primero debes introducir un vehículo.");
             return;
         }
-        System.out.println("Listado de matrículas de vehículos:");
+        System.out.println("Lista de matrículas de vehículos:");
         for (String matricula : matriculasVehiculos) {
             System.out.println(matricula);
         }
-        System.out.print("Seleccione la matrícula del vehículo a reparar: ");
+        System.out.print("Seleccione la matrícula del vehículo que quieras reparar: ");
         String matriculaSeleccionada = input.nextLine();
         if (!matriculasVehiculos.contains(matriculaSeleccionada)) {
             System.out.println("La matrícula seleccionada no está en el listado. Inténtalo de nuevo.");
             return;
         }
         System.out.println("Matrícula seleccionada: " + matriculaSeleccionada);
+
+        /**
+         * Método para buscar un mecánico disponible.
+         */
+        public String buscarMecanicoDisponible() {
+            for (String estadoMecanico : codigosMecanicos) {
+                if (estadoMecanico.equals("lliure")) {
+                    int index = codigosMecanicos.indexOf(estadoMecanico);
+                    codigosMecanicos.set(index, "ocupat");
+                    return codigosMecanicos.get(index);
+                }
+            }
+            return "";
+        }
+
 
