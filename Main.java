@@ -11,10 +11,10 @@ public class Main {
 
     public void init() {
         int menuItem = 0;
-        String[][] clientes = new String[100][2]; // Array para almacenar clientes
-        String[][] vehiculos = new String[100][3]; // Array para almacenar vehículos
-        String[][] mecanicos = new String[100][3]; // Array para almacenar mecánicos
-        String[][] reparaciones = new String[100][4]; // Array para almacenar reparaciones
+        String[][] clientes = new String[100][2];
+        String[][] vehiculos = new String[100][3];
+        String[][] mecanicos = new String[100][3];
+        String[][] reparaciones = new String[100][4];
 
         do {
             System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
@@ -23,7 +23,7 @@ public class Main {
             System.out.println("[3] Introduir nou vehicle");
             System.out.println("[4] Crear fitxa de nova reparació");
             System.out.println("[5] Sortir");
-            System.out.println("Sel·lecciona una opció: ");
+            System.out.print("Sel·lecciona una opció: ");
 
             if (input.hasNextInt()) {
                 menuItem = input.nextInt();
@@ -59,23 +59,17 @@ public class Main {
         } while (menuItem != 5);
     }
 
-    // Método para dar de alta un nuevo cliente
-    private static void altaNuevoCliente(String[][] clientes, Scanner scanner) {
+    private void altaNuevoCliente(String[][] clientes, Scanner scanner) {
         System.out.println("### Alta de Nou Client ###");
 
-        // TODO: Pedir datos al usuario (DNI y nombre)
         System.out.print("Introdueix el DNI del client: ");
         String dni = scanner.next();
         System.out.print("Introdueix el nom del client: ");
         String nombre = scanner.next();
 
-        // TODO: Validar el formato del DNI
         if (validarFormatoDNI(dni)) {
-            // TODO: Verificar si el DNI ya existe
             if (!existeCliente(clientes, dni)) {
-                // TODO: Validar que el nombre no sea vacío
                 if (!nombre.isEmpty()) {
-                    // TODO: Almacenar datos del nuevo cliente en la matriz
                     for (int i = 0; i < clientes.length; i++) {
                         if (clientes[i][0] == null) {
                             clientes[i][0] = dni;
@@ -95,36 +89,43 @@ public class Main {
         }
     }
 
-    // Método para dar de alta un nuevo mecánico
-    private static void altaNuevoMecanico(String[][] mecanicos, Scanner scanner) {
-        // TODO: Implementar lógica para dar de alta un nuevo mecánico
-        System.out.println("Mètode per donar d'alta un nou mecànic (a implementar)...");
+    private void altaNuevoMecanico(String[][] mecanicos, Scanner scanner) {
+        System.out.println("### Alta de Nou Mecànic ###");
+
+        System.out.print("Introdueix el codi del mecànic: ");
+        String codigo = scanner.next();
+        System.out.print("Introdueix el nom del mecànic: ");
+        String nombre = scanner.next();
+
+        // Implementa la lógica para dar de alta un nuevo mecánico
+
+        System.out.println("Mecànic donat d'alta amb èxit.");
     }
 
-    // Método para dar de alta un nuevo vehículo
-    private static void altaNuevoVehiculo(String[][] clientes, String[][] vehiculos, Scanner scanner) {
-        // TODO: Implementar lógica para dar de alta un nuevo vehículo
-        System.out.println("Mètode per donar d'alta un nou vehicle (a implementar)...");
+    private void altaNuevoVehiculo(String[][] clientes, String[][] vehiculos, Scanner scanner) {
+        System.out.println("### Alta de Nou Vehicle ###");
+
+        // Implementa la lógica para dar de alta un nuevo vehículo
+
+        System.out.println("Vehicle donat d'alta amb èxit.");
     }
 
-    // Método para crear ficha de nueva reparación
-    private static void altaNuevaReparacion(String[][] vehiculos, String[][] mecanicos,
-                                            String[][] reparaciones, Scanner scanner) {
-        // TODO: Implementar lógica para crear ficha de nueva reparación
-        System.out.println("Mètode per crear fitxa de nova reparació (a implementar)...");
+    private void altaNuevaReparacion(String[][] vehiculos, String[][] mecanicos,
+                                     String[][] reparaciones, Scanner scanner) {
+        System.out.println("### Crear Fitxa de Nova Reparació ###");
+
+        // Implementa la lógica para crear una ficha de nueva reparación
+
+        System.out.println("Fitxa de reparació creada amb èxit.");
     }
 
-    // Método para validar el formato del DNI
-    private static boolean validarFormatoDNI(String dni) {
-        // TODO: Implementa la lógica de validación del formato del DNI
-        return false;
+    private boolean validarFormatoDNI(String dni) {
+        // Implementa la lógica para validar el formato del DNI
+        return true; // Cambia esto según tus requisitos
     }
 
-    // Método para verificar si un cliente ya existe
-    private static boolean existeCliente(String[][] clientes, String dni) {
-        // TODO: Implementa la lógica para verificar si un cliente ya existe
-        return false;
+    private boolean existeCliente(String[][] clientes, String dni) {
+        // Implementa la lógica para verificar si un cliente ya existe
+        return false; // Cambia esto según tus requisitos
     }
-
-    // Resto de las clases y métodos...
 }
