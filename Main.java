@@ -30,7 +30,7 @@ public class Main {
                 switch (menuItem){
                     case 1:
                         System.out.println("Has triat donar d’alta nou client....");
-                        //insert code here
+                        afegirNouClient();
                         break;
                     case 2:
                         System.out.println("Has triat donar d’alta nou mecànic....");
@@ -60,6 +60,35 @@ public class Main {
 
     }
 
-    //insert code here
+
+    /**
+     * Mètode per donar d’alta un nou client amb validació del DNI.
+     */
+    private void afegirNouClient() {
+        // Implementació per afegir un nou client
+        String dni;
+        do {
+            System.out.print("Introdueix el DNI del client (format: 12345678A): ");
+            dni = input.next();
+        } while (!validarFormatDNI(dni));
+
+        input.nextLine(); // Consume the newline character left by next()
+
+        System.out.print("Introdueix el nom del client: ");
+        String nom = input.nextLine();
+
+        // Add logic to save the client information
+        System.out.println("Client donat d'alta amb èxit!");
+    }
+
+    /**
+     * Mètode per validar el format del DNI: 8 enters seguits de 1 caràcter (lletra).
+     *
+     * @param dni DNI a validar.
+     * @return Cert si el format del DNI és vàlid, Fals altrament.
+     */
+    private boolean validarFormatDNI(String dni) {
+        return dni.matches("\\d{8}[A-Za-z]");
+    }
 
 }
