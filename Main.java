@@ -38,7 +38,7 @@ public class Main {
                         break;
                     case 3:
                         System.out.println("Has triat introduir nou vehicle....");
-                        //insert code here
+                        altaNuevaReparacion();
                         break;
                     case 4:
                         System.out.println("Has triat crear fitxa de nova reparació....");
@@ -92,3 +92,24 @@ public class Main {
     }
 
 }
+    /**
+     * Método para dar de alta una nueva reparación.
+     */
+    public void altaNuevaReparacion(){
+        System.out.println("Has elegido introducir nueva reparación....");
+        if (matriculasVehiculos.isEmpty()) {
+            System.out.println("No hay vehículos dados de alta. Primero debes introducir un vehículo.");
+            return;
+        }
+        System.out.println("Listado de matrículas de vehículos:");
+        for (String matricula : matriculasVehiculos) {
+            System.out.println(matricula);
+        }
+        System.out.print("Seleccione la matrícula del vehículo a reparar: ");
+        String matriculaSeleccionada = input.nextLine();
+        if (!matriculasVehiculos.contains(matriculaSeleccionada)) {
+            System.out.println("La matrícula seleccionada no está en el listado. Inténtalo de nuevo.");
+            return;
+        }
+        System.out.println("Matrícula seleccionada: " + matriculaSeleccionada);
+
