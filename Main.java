@@ -7,7 +7,7 @@ public class Main {
     static final int MAX_MECHANICS = 100;
     static final int MAX_REPAIRS = 100;
     static Scanner input = new Scanner(System.in);
-    static List<String> DNIsPropietarios = new ArrayList<>();
+    static List<String> DNIsPropietaris = new ArrayList<>();
     static List<String> matriculasVehiculos = new ArrayList<>();
     static List<String> nombresModelos = new ArrayList<>();
     static List<Mecanic> mecanics = new ArrayList<>();
@@ -21,12 +21,12 @@ public class Main {
     public void init() {
         int menuItem = 0;
         do {
-            System.out.println("TALLER DE REPARACIÓN DE VEHÍCULOS");
+            System.out.println("TALLER DE REPARACIÓ DE VEHICLES");
             System.out.println("[1] Donar d’alta nou client");
-            System.out.println("[2] Dar de alta nuevo vehículo");
+            System.out.println("[2] Donar d’alta nou vehícle");
             System.out.println("[3] Donar d’alta nou mecànic");
-            System.out.println("[4] Introduir nou vehicle");
-            System.out.println("[5] Crear fitxa de nova reparació");
+            System.out.println("[4] Donar d'alta nova reparació");
+            System.out.println("[5] Actualitzar Reparacions");
             System.out.println("[6] Sortir");
             System.out.println("Sel·lecciona una opció: ");
 
@@ -38,6 +38,7 @@ public class Main {
                         afegirNouClient();
                         break;
                     case 2:
+                        System.out.println("Has triat donar d'alta nou vehícle....");
                         altaNuevoVehiculo();
                         break;
                     case 3:
@@ -45,11 +46,11 @@ public class Main {
                         afegirNouMecanic();
                         break;
                     case 4:
-                        System.out.println("Has triat introduir nou vehicle....");
+                        System.out.println("Has triat reparar un vehicle....");
                         altaNuevaReparacion();
                         break;
                     case 5:
-                        System.out.println("Has triat crear fitxa de nova reparació....");
+                        System.out.println("Has triat actualizar les reparacions....");
                         actualizarReparaciones();
                         break;
                     case 6:
@@ -78,6 +79,10 @@ public class Main {
         input.nextLine();
         System.out.print("Introdueix el nom del client: ");
         String nom = input.nextLine();
+
+
+        DNIsPropietaris.add(dni);
+
         System.out.println("Client donat d'alta amb èxit!");
     }
 
@@ -118,70 +123,108 @@ public class Main {
     }
 
     public void altaNuevoVehiculo() {
-        System.out.println("Has elegido dar de alta nuevo vehículo....");
-        if (DNIsPropietarios.isEmpty()) {
-            System.out.println("No hay clientes dados de alta.");
+        if (DNIsPropietaris.isEmpty()) {
+            System.out.println("No hi ha clients donats d'alta.");
             return;
         }
-        System.out.print("Introduce la matrícula del vehículo (el formato es: 4 dígitos + 3 letras): ");
-        String matriculaVehiculo = input.nextLine();
-        if (!validarMatricula(matriculaVehiculo)) {
-            System.out.println("Formato de matrícula incorrecto. Debe ser 4 dígitos seguidos de 3 letras.");
-            return;
-        }
+
+        String matriculaVehiculo;
+        boolean formatoIncorrecto;
+        do {
+            System.out.print("Introdueix la matrícula del vehicle (el format és: 4 dígits + 3 lletres): ");
+            matriculaVehiculo = input.nextLine();
+            formatoIncorrecto = !validarMatricula(matriculaVehiculo);
+            if (formatoIncorrecto) {
+                System.out.println("Error: Format de matrícula incorrecte. Ha de ser 4 dígits seguits de 3 lletres.");
+            }
+        } while (formatoIncorrecto);
+
         if (matriculasVehiculos.contains(matriculaVehiculo)) {
-            System.out.println("La matrícula del vehículo ya existe. Introduce una nueva.");
+            System.out.println("La matrícula del vehicle ja existeix. Introdueix-ne una de nova.");
             return;
         }
-        System.out.print("Introduce el modelo del vehículo: ");
+
+        System.out.print("Introdueix el model del vehicle: ");
         String nombreModelo = input.nextLine();
         if (nombreModelo.isEmpty()) {
-            System.out.println("El nombre del modelo del vehículo no puede estar vacío.");
+            System.out.println("El nom del model del vehicle no pot estar buit.");
             return;
         }
-        System.out.println("Lista de DNIs de propietarios:");
-        for (String DNI : DNIsPropietarios) {
+
+        System.out.println("Llista de DNIs de propietaris:");
+        for (String DNI : DNIsPropietaris) {
             System.out.println(DNI);
         }
-        System.out.print("Seleccione el DNI del propietario del vehículo: ");
+
+        System.out.print("Selecciona el DNI del propietari del vehicle: ");
         String DNIPropietario = input.nextLine();
-        if (!DNIsPropietarios.contains(DNIPropietario)) {
-            System.out.println("El DNI seleccionado no está en la lista.");
+        if (!DNIsPropietaris.contains(DNIPropietario)) {
+            System.out.println("El DNI seleccionat no està a la llista.");
             return;
         }
+
         matriculasVehiculos.add(matriculaVehiculo);
         nombresModelos.add(nombreModelo);
-        DNIsPropietarios.add(DNIPropietario);
-        System.out.println("Vehículo dado de alta con éxito.");
+        DNIsPropietaris.add(DNIPropietario);
+        System.out.println("Vehicle donat d'alta amb èxit.");
     }
 
-    private boolean validarMatricula(String matricula) {
-        return matricula.matches("\\d{4}[A-Za-z]{3}");
+    public boolean validarMatricula(String matricula) {
+        String patron = "\\d{4}[a-zA-Z]{3}";
+        return matricula.matches(patron);
     }
 
     public void altaNuevaReparacion() {
-        System.out.println("Has elegido introducir nueva reparación....");
         if (matriculasVehiculos.isEmpty()) {
-            System.out.println("No hay vehículos dados de alta. Primero debes introducir un vehículo.");
+            System.out.println("No hi ha vehicles donats d'alta. Si us plau, insereix primer algun vehicle.");
             return;
         }
-        System.out.println("Lista de matrículas de vehículos:");
-        for (String
 
-                matricula : matriculasVehiculos) {
+        System.out.println("Llista de matrícules de vehicles:");
+        for (String matricula : matriculasVehiculos) {
             System.out.println(matricula);
         }
-        System.out.print("Seleccione la matrícula del vehículo que quieras reparar: ");
-        String matriculaSeleccionada = input.nextLine();
-        if (!matriculasVehiculos.contains(matriculaSeleccionada)) {
-            System.out.println("La matrícula seleccionada no está en el listado. Inténtalo de nuevo.");
+
+        input.nextLine();
+
+        System.out.print("Introdueix la matrícula del vehicle a reparar: ");
+        String matriculaVehiculo = input.nextLine();
+        if (!matriculasVehiculos.contains(matriculaVehiculo)) {
+            System.out.println("La matrícula introduïda no correspon a cap vehicle donat d'alta.");
             return;
         }
-        System.out.println("Matrícula seleccionada: " + matriculaSeleccionada);
+
+        String codigoMecanico = null;
+        for (Mecanic mecanico : mecanics) {
+            if (mecanico.getEstado().equals("lliure")) {
+                codigoMecanico = mecanico.getCodiEmpleat();
+                mecanico.setEstado("ocupat");
+                break;
+            }
+        }
+
+        String estadoReparacion = (codigoMecanico != null) ? "en curs" : "oberta";
+
+        if (estadoReparacion.equals("oberta")) {
+            System.out.println("No hi ha mecànics disponibles. La reparació s'assignarà com a 'oberta'.");
+        }
+
+        System.out.print("Introdueix la descripció de la reparació: ");
+        String descripcionReparacion = input.nextLine();
+        if (descripcionReparacion.isEmpty()) {
+            System.out.println("La descripció de la reparació no pot estar buida.");
+            return;
+        }
+
+        Reparacion nuevaReparacion = new Reparacion(matriculaVehiculo, codigoMecanico, estadoReparacion, descripcionReparacion);
+
+        repairs.add(nuevaReparacion);
+
+        System.out.println("Reparació donada d'alta amb èxit.");
     }
 
+
     public void actualizarReparaciones() {
-        System.out.println("Has elegido actualizar las reparaciones....");
         if (repairs.isEmpty()) {
             System.out.println("No se están haciendo reparaciones.");
             return;
@@ -197,67 +240,108 @@ public class Main {
             return;
         }
         int index = matriculasVehiculos.indexOf(matriculaSeleccionada);
-        System.out.println("Estado actual de la reparación: " + repairs.get(index).getEstado());
-        System.out.print("Ingrese el nuevo estado de la reparación (abierta/en curso/acabada): ");
-        String nuevoEstado = input.nextLine();
-        if (nuevoEstado.equals("abierta") || nuevoEstado.equals("en curso") || nuevoEstado.equals("acabada")) {
-            repairs.get(index).setEstado(nuevoEstado);
-            System.out.println("Estado de la reparación actualizado con éxito.");
+        if (index >= 0 && index < repairs.size()) {
+            System.out.println("Estado actual de la reparación: " + repairs.get(index).getEstado());
+            System.out.print("Ingrese el nuevo estado de la reparación (abierta/en curso/acabada): ");
+            String nuevoEstado = input.nextLine();
+            if (nuevoEstado.equals("abierta") || nuevoEstado.equals("en curso") || nuevoEstado.equals("acabada")) {
+                repairs.get(index).setEstado(nuevoEstado);
+                System.out.println("Estado de la reparación actualizado con éxito.");
+            } else {
+                System.out.println("Estado de la reparación no válido. Inténtalo de nuevo.");
+            }
         } else {
-            System.out.println("Estado de la reparación no válido. Inténtalo de nuevo.");
+            System.out.println("La matrícula no tiene una reparación asociada. Inténtalo de nuevo.");
         }
     }
-}
 
-class Mecanic {
-    private String codiEmpleat;
-    private String nom;
 
-    public Mecanic() {
+
+    class Mecanic {
+        private String codiEmpleat;
+        private String nom;
+        private String estado;
+
+        public Mecanic() {
+            this.estado = "lliure";
+        }
+
+        public String getCodiEmpleat() {
+            return codiEmpleat;
+        }
+
+        public void setCodiEmpleat(String codiEmpleat) {
+            this.codiEmpleat = codiEmpleat;
+        }
+
+        public String getNom() {
+            return nom;
+        }
+
+        public void setNom(String nom) {
+            this.nom = nom;
+        }
+
+        public String getEstado() {
+            return estado;
+        }
+
+        public void setEstado(String estado) {
+            this.estado = estado;
+        }
+
+        public boolean validarCodiEmpleat() {
+            return true;
+        }
+
+        public boolean esBuit() {
+            return codiEmpleat == null || nom == null || codiEmpleat.isEmpty() || nom.isEmpty();
+        }
     }
 
-    public String getCodiEmpleat() {
-        return codiEmpleat;
-    }
+    class Reparacion {
+        private String matricula;
+        private String codigoMecanico;
+        private String estado;
+        private String descripcion;
 
-    public void setCodiEmpleat(String codiEmpleat) {
-        this.codiEmpleat = codiEmpleat;
-    }
+        public Reparacion(String matricula, String codigoMecanico, String estado, String descripcion) {
+            this.matricula = matricula;
+            this.codigoMecanico = codigoMecanico;
+            this.estado = estado;
+            this.descripcion = descripcion;
+        }
 
-    public String getNom() {
-        return nom;
-    }
+        public String getMatricula() {
+            return matricula;
+        }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+        public void setMatricula(String matricula) {
+            this.matricula = matricula;
+        }
 
-    public boolean validarCodiEmpleat() {
-        return true;
-    }
+        public String getCodigoMecanico() {
+            return codigoMecanico;
+        }
 
-    public boolean esBuit() {
-        return codiEmpleat == null || nom == null || codiEmpleat.isEmpty() || nom.isEmpty();
-    }
-}
+        public void setCodigoMecanico(String codigoMecanico) {
+            this.codigoMecanico = codigoMecanico;
+        }
 
-class Reparacion {
-    private String matricula;
-    private String estado;
+        public String getEstado() {
+            return estado;
+        }
 
-    public String getMatricula() {
-        return matricula;
-    }
+        public void setEstado(String estado) {
+            this.estado = estado;
+        }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
+        public String getDescripcion() {
+            return descripcion;
+        }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+        public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+        }
     }
 }
