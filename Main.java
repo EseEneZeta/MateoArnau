@@ -1,16 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    Scanner input = new Scanner(System.in);
-
-
+    static Scanner input = new Scanner(System.in);
+    static List<String> DNIsPropietarios = new ArrayList<>();
+    static List<String> matriculasVehiculos = new ArrayList<>();
+    static List<String> nombresModelos = new ArrayList<>();
+    static List<String> codigosMecanicos = new ArrayList<>();
+    static List<String> estadosReparacion = new ArrayList<>();
 
     public static void main(String[] args) {
-
         Main main = new Main();
         main.init();
     }
+
 
 
 
@@ -136,6 +141,10 @@ public class Main {
         DNIsPropietarios.add(DNIPropietario);
         System.out.println("Vehículo dado de alta con éxito.");
     }
+
+    private boolean validarMatricula(String matricula) {
+        return matricula.matches("\\d{4}[A-Za-z]{3}");
+    }
     /**
      * Método para dar de alta una nueva reparación.
      */
@@ -204,5 +213,4 @@ public class Main {
             }
         }
     }
-
 
