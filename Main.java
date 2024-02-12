@@ -69,7 +69,11 @@ public class Main {
             } else {
                 System.out.println("Opció no vàlida");
             }
-            input.nextLine(); // Limpiar el buffer de entrada
+
+            if (menuItem != 6) {
+                init();
+            }
+            input.nextLine();
             System.out.println("");
 
         } while (menuItem != 6);
